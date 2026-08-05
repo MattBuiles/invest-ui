@@ -1,0 +1,84 @@
+/* invest-ui — tokens de marca (claro + oscuro) + mapeo a utilidades Tailwind v4.
+ *
+ * Uso en la app que consume:
+ *   @import "tailwindcss";
+ *   @import "invest-ui/theme.css";
+ *   @source "../node_modules/invest-ui/src";   (para que Tailwind vea las clases)
+ *
+ * El tema se resuelve por preferencia del SO y se puede forzar con
+ * data-theme="light" | "dark" en <html>.
+ */
+
+:root {
+  --iv-bg: #f4f6f6;
+  --iv-surface: #ffffff;
+  --iv-surface-2: #eef1f1;
+  --iv-border: #dfe4e4;
+  --iv-fg: #0d1414;
+  --iv-muted: #5c6b6b;
+  --iv-accent: #0f766e;
+  --iv-accent-strong: #0b5d56;
+  --iv-accent-soft: rgba(15, 118, 110, 0.12);
+  --iv-up: #16a34a;
+  --iv-down: #dc2626;
+  --iv-warn: #b7791f;
+  --iv-grid: rgba(13, 20, 20, 0.06);
+  --iv-shadow: 0 1px 2px rgba(13, 20, 20, 0.05), 0 10px 30px rgba(13, 20, 20, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --iv-bg: #0a0f12;
+    --iv-surface: #111a1e;
+    --iv-surface-2: #17232a;
+    --iv-border: #253138;
+    --iv-fg: #e6eeee;
+    --iv-muted: #8ba0a0;
+    --iv-accent: #2dd4bf;
+    --iv-accent-strong: #14b8a6;
+    --iv-accent-soft: rgba(45, 212, 191, 0.14);
+    --iv-up: #34d399;
+    --iv-down: #f87171;
+    --iv-warn: #f5c451;
+    --iv-grid: rgba(230, 238, 238, 0.07);
+    --iv-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 34px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:root[data-theme="dark"] {
+  --iv-bg: #0a0f12;
+  --iv-surface: #111a1e;
+  --iv-surface-2: #17232a;
+  --iv-border: #253138;
+  --iv-fg: #e6eeee;
+  --iv-muted: #8ba0a0;
+  --iv-accent: #2dd4bf;
+  --iv-accent-strong: #14b8a6;
+  --iv-accent-soft: rgba(45, 212, 191, 0.14);
+  --iv-up: #34d399;
+  --iv-down: #f87171;
+  --iv-warn: #f5c451;
+  --iv-grid: rgba(230, 238, 238, 0.07);
+  --iv-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 34px rgba(0, 0, 0, 0.35);
+}
+
+/* Mapeo runtime → utilidades Tailwind (bg-surface, text-muted, bg-accent, …) */
+@theme inline {
+  --color-bg: var(--iv-bg);
+  --color-surface: var(--iv-surface);
+  --color-surface-2: var(--iv-surface-2);
+  --color-border: var(--iv-border);
+  --color-fg: var(--iv-fg);
+  --color-muted: var(--iv-muted);
+  --color-accent: var(--iv-accent);
+  --color-accent-strong: var(--iv-accent-strong);
+  --color-up: var(--iv-up);
+  --color-down: var(--iv-down);
+  --color-warn: var(--iv-warn);
+}
+
+body {
+  background: var(--iv-bg);
+  color: var(--iv-fg);
+}
+.iv-tabular { font-variant-numeric: tabular-nums; }
