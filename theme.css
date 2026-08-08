@@ -88,21 +88,24 @@
   --dur: 240ms;
   --dur-slow: 420ms;
 
-  /* --- Alias retrocompat (--iv-*) → canónicos --- */
-  --iv-bg: var(--bg);
-  --iv-surface: var(--bg-elevated);
-  --iv-surface-2: var(--bg-subtle);
-  --iv-border: var(--border);
-  --iv-fg: var(--fg);
-  --iv-muted: var(--fg-muted);
-  --iv-accent: var(--accent);
-  --iv-accent-strong: var(--accent-hover);
-  --iv-accent-soft: var(--accent-soft);
-  --iv-up: var(--positive);
-  --iv-down: var(--negative);
-  --iv-warn: var(--warning);
+  /* --- Alias retrocompat (--iv-*) — CONCRETOS (no var(--canónico)) ---
+   * Deben ser valores concretos: las apps bridgean `--border: var(--iv-border)`,
+   * así que si --iv-border fuese `var(--border)` se crearía un ciclo y el color
+   * caería a currentColor. Mantener en sync con los canónicos de arriba. */
+  --iv-bg: #fafafa;
+  --iv-surface: #ffffff;
+  --iv-surface-2: #f4f4f5;
+  --iv-border: #e4e4e7;
+  --iv-fg: #18181b;
+  --iv-muted: #52525b;
+  --iv-accent: #4c1d95;
+  --iv-accent-strong: #6d28d9;
+  --iv-accent-soft: #ede9fe;
+  --iv-up: #059669;
+  --iv-down: #dc2626;
+  --iv-warn: #d97706;
   --iv-grid: rgba(24, 24, 27, 0.06);
-  --iv-shadow: var(--shadow);
+  --iv-shadow: 0 1px 3px rgba(24, 24, 27, 0.04), 0 4px 12px rgba(24, 24, 27, 0.05);
 }
 
 /* Dark: solo redefinimos los canónicos; los alias --iv-* resuelven vía var(). */
@@ -136,7 +139,20 @@
     --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.4);
     --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.5), 0 32px 64px rgba(0, 0, 0, 0.5);
 
+    --iv-bg: #0a0a0a;
+    --iv-surface: #141416;
+    --iv-surface-2: #1c1c1f;
+    --iv-border: #27272a;
+    --iv-fg: #fafafa;
+    --iv-muted: #a1a1aa;
+    --iv-accent: #a78bfa;
+    --iv-accent-strong: #c4b5fd;
+    --iv-accent-soft: rgba(167, 139, 250, 0.14);
+    --iv-up: #34d399;
+    --iv-down: #f87171;
+    --iv-warn: #fbbf24;
     --iv-grid: rgba(250, 250, 250, 0.07);
+    --iv-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 }
 
