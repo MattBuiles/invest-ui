@@ -1,65 +1,175 @@
-/* invest-ui — tokens de marca (claro + oscuro) + mapeo a utilidades Tailwind v4.
+/* strata — sistema de marca personal (violeta editorial), claro + oscuro.
  *
  * Uso en la app que consume:
  *   @import "tailwindcss";
  *   @import "invest-ui/theme.css";
  *   @source "../node_modules/invest-ui/src";   (para que Tailwind vea las clases)
  *
- * El tema se resuelve por preferencia del SO y se puede forzar con
+ * Tokens canónicos sin prefijo (--bg, --fg, --accent, …). Los alias --iv-*
+ * apuntan a ellos por retrocompatibilidad con las apps que ya bridgean a --iv-*.
+ * El tema se resuelve por preferencia del SO y se fuerza con
  * data-theme="light" | "dark" en <html>.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
 :root {
-  --iv-bg: #f4f6f6;
-  --iv-surface: #ffffff;
-  --iv-surface-2: #eef1f1;
-  --iv-border: #dfe4e4;
-  --iv-fg: #0d1414;
-  --iv-muted: #5c6b6b;
-  --iv-accent: #0f766e;
-  --iv-accent-strong: #0b5d56;
-  --iv-accent-soft: rgba(15, 118, 110, 0.12);
-  --iv-up: #16a34a;
-  --iv-down: #dc2626;
-  --iv-warn: #b7791f;
-  --iv-grid: rgba(13, 20, 20, 0.06);
-  --iv-shadow: 0 1px 2px rgba(13, 20, 20, 0.05), 0 10px 30px rgba(13, 20, 20, 0.06);
+  /* Superficies */
+  --bg: #fafafa;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #f4f4f5;
+  --bg-inverse: #0a0a0a;
+
+  /* Texto */
+  --fg: #18181b;
+  --fg-muted: #52525b;
+  --fg-subtle: #a1a1aa;
+  --fg-inverse: #fafafa;
+
+  /* Bordes */
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  /* Acento — violeta editorial */
+  --accent: #4c1d95;
+  --accent-hover: #6d28d9;
+  --accent-soft: #ede9fe;
+  --accent-soft-hover: #ddd6fe;
+  --accent-fg: #ffffff;
+
+  /* Semánticos (P&L separado del acento) */
+  --positive: #059669;
+  --negative: #dc2626;
+  --warning: #d97706;
+
+  /* Sombras en capas */
+  --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.04);
+  --shadow: 0 1px 3px rgba(24, 24, 27, 0.04), 0 4px 12px rgba(24, 24, 27, 0.05);
+  --shadow-lg: 0 4px 8px rgba(24, 24, 27, 0.04), 0 16px 32px rgba(24, 24, 27, 0.07);
+  --shadow-xl: 0 8px 16px rgba(24, 24, 27, 0.05), 0 32px 64px rgba(24, 24, 27, 0.09);
+  --shadow-focus: 0 0 0 3px var(--accent-soft);
+
+  /* Tipografía */
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  /* Escala tipográfica */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3.5rem;
+  --text-5xl: 5rem;
+  --text-display: 6.5rem;
+
+  /* Interlineados */
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-normal: 1.55;
+  --lh-loose: 1.75;
+
+  /* Radios */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-full: 9999px;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur: 240ms;
+  --dur-slow: 420ms;
+
+  /* --- Alias retrocompat (--iv-*) → canónicos --- */
+  --iv-bg: var(--bg);
+  --iv-surface: var(--bg-elevated);
+  --iv-surface-2: var(--bg-subtle);
+  --iv-border: var(--border);
+  --iv-fg: var(--fg);
+  --iv-muted: var(--fg-muted);
+  --iv-accent: var(--accent);
+  --iv-accent-strong: var(--accent-hover);
+  --iv-accent-soft: var(--accent-soft);
+  --iv-up: var(--positive);
+  --iv-down: var(--negative);
+  --iv-warn: var(--warning);
+  --iv-grid: rgba(24, 24, 27, 0.06);
+  --iv-shadow: var(--shadow);
 }
 
+/* Dark: solo redefinimos los canónicos; los alias --iv-* resuelven vía var(). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --iv-bg: #0a0f12;
-    --iv-surface: #111a1e;
-    --iv-surface-2: #17232a;
-    --iv-border: #253138;
-    --iv-fg: #e6eeee;
-    --iv-muted: #8ba0a0;
-    --iv-accent: #2dd4bf;
-    --iv-accent-strong: #14b8a6;
-    --iv-accent-soft: rgba(45, 212, 191, 0.14);
-    --iv-up: #34d399;
-    --iv-down: #f87171;
-    --iv-warn: #f5c451;
-    --iv-grid: rgba(230, 238, 238, 0.07);
-    --iv-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 34px rgba(0, 0, 0, 0.35);
+    --bg: #0a0a0a;
+    --bg-elevated: #141416;
+    --bg-subtle: #1c1c1f;
+    --bg-inverse: #fafafa;
+
+    --fg: #fafafa;
+    --fg-muted: #a1a1aa;
+    --fg-subtle: #71717a;
+    --fg-inverse: #18181b;
+
+    --border: #27272a;
+    --border-strong: #3f3f46;
+
+    --accent: #a78bfa;
+    --accent-hover: #c4b5fd;
+    --accent-soft: rgba(167, 139, 250, 0.14);
+    --accent-soft-hover: rgba(167, 139, 250, 0.22);
+    --accent-fg: #0a0a0a;
+
+    --positive: #34d399;
+    --negative: #f87171;
+    --warning: #fbbf24;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.5), 0 32px 64px rgba(0, 0, 0, 0.5);
+
+    --iv-grid: rgba(250, 250, 250, 0.07);
   }
 }
 
 :root[data-theme="dark"] {
-  --iv-bg: #0a0f12;
-  --iv-surface: #111a1e;
-  --iv-surface-2: #17232a;
-  --iv-border: #253138;
-  --iv-fg: #e6eeee;
-  --iv-muted: #8ba0a0;
-  --iv-accent: #2dd4bf;
-  --iv-accent-strong: #14b8a6;
-  --iv-accent-soft: rgba(45, 212, 191, 0.14);
-  --iv-up: #34d399;
-  --iv-down: #f87171;
-  --iv-warn: #f5c451;
-  --iv-grid: rgba(230, 238, 238, 0.07);
-  --iv-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 34px rgba(0, 0, 0, 0.35);
+  --bg: #0a0a0a;
+  --bg-elevated: #141416;
+  --bg-subtle: #1c1c1f;
+  --bg-inverse: #fafafa;
+
+  --fg: #fafafa;
+  --fg-muted: #a1a1aa;
+  --fg-subtle: #71717a;
+  --fg-inverse: #18181b;
+
+  --border: #27272a;
+  --border-strong: #3f3f46;
+
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-soft: rgba(167, 139, 250, 0.14);
+  --accent-soft-hover: rgba(167, 139, 250, 0.22);
+  --accent-fg: #0a0a0a;
+
+  --positive: #34d399;
+  --negative: #f87171;
+  --warning: #fbbf24;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.5), 0 32px 64px rgba(0, 0, 0, 0.5);
+
+  --iv-grid: rgba(250, 250, 250, 0.07);
 }
 
 /* Mapeo runtime → utilidades Tailwind (bg-surface, text-muted, bg-accent, …) */
@@ -75,10 +185,15 @@
   --color-up: var(--iv-up);
   --color-down: var(--iv-down);
   --color-warn: var(--iv-warn);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
 }
 
 body {
-  background: var(--iv-bg);
-  color: var(--iv-fg);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
 }
 .iv-tabular { font-variant-numeric: tabular-nums; }
